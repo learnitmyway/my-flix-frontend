@@ -13,6 +13,7 @@ function Video({ src }) {
 const statuses = {
   LOADING: 'loading',
   LOADED: 'loaded',
+  ERROR: 'err',
 }
 
 function App() {
@@ -20,9 +21,14 @@ function App() {
   const [status, setStatus] = useState(statuses.LOADING)
 
   async function fetchVideos() {
-    const videos = await getVideos()
-    setVideos(videos)
-    setStatus(statuses.LOADED)
+    try {
+      const videos = await getVideos()
+      setVideos(videos)
+      setStatus(statuses.LOADED)
+    } catch (err) {
+      setStatus(statuses.ERROR)
+      console.error(err)
+    }
   }
 
   useEffect(() => {
@@ -34,6 +40,8 @@ function App() {
       {(() => {
         if (status === statuses.LOADING) {
           return <p>Loading...</p>
+        } else if (status === statuses.ERROR) {
+          return <p>Error</p>
         } else {
           return (
             <ul>
