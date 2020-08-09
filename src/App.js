@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import logo from './logo.svg'
+import './App.css'
 
 function App() {
   return (
@@ -19,8 +19,11 @@ function App() {
           Learn React
         </a>
       </header>
+      <video width="750" height="500" controls>
+        <source src="/assets/first-video.mp4" type="video/mp4" />
+      </video>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
