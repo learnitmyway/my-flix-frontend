@@ -1,5 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
+
+function temp() {
+  return [
+    {
+      id: '1',
+      src: 'assets/rock-balance.mp4',
+    },
+    {
+      id: '2',
+      src: 'assets/mare.mp4',
+    },
+    {
+      id: '3',
+      src: 'assets/waterfall.mp4',
+    },
+  ]
+}
 
 function Video({ src }) {
   return (
@@ -9,12 +26,42 @@ function Video({ src }) {
   )
 }
 
+const statuses = {
+  LOADING: 'loading',
+  LOADED: 'loaded',
+}
+
 function App() {
+  const [videos, setVideos] = useState([])
+  const [status, setStatus] = useState(statuses.LOADING)
+
+  async function getVideos() {
+    const videos = await temp()
+    setVideos(videos)
+    setStatus(statuses.LOADED)
+  }
+
+  useEffect(() => {
+    getVideos()
+  }, [])
+
   return (
     <main className="App">
-      <Video src="assets/rock-balance.mp4" />
-      <Video src="assets/mare.mp4" />
-      <Video src="assets/waterfall.mp4" />
+      {(() => {
+        if (status === statuses.LOADING) {
+          return <p>Loading...</p>
+        } else {
+          return (
+            <ul>
+              {videos.map(({ id, src }) => (
+                <li>
+                  <Video key={id} src={src} />
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      })()}
     </main>
   )
 }
