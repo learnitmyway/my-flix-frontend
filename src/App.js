@@ -1,22 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
-
-function temp() {
-  return [
-    {
-      id: '1',
-      src: 'assets/rock-balance.mp4',
-    },
-    {
-      id: '2',
-      src: 'assets/mare.mp4',
-    },
-    {
-      id: '3',
-      src: 'assets/waterfall.mp4',
-    },
-  ]
-}
+import { getVideos } from './video.service'
 
 function Video({ src }) {
   return (
@@ -35,14 +19,14 @@ function App() {
   const [videos, setVideos] = useState([])
   const [status, setStatus] = useState(statuses.LOADING)
 
-  async function getVideos() {
-    const videos = await temp()
+  async function fetchVideos() {
+    const videos = await getVideos()
     setVideos(videos)
     setStatus(statuses.LOADED)
   }
 
   useEffect(() => {
-    getVideos()
+    fetchVideos()
   }, [])
 
   return (
