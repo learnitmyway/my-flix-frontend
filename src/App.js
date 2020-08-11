@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import { getVideos } from './video.service'
 
-function Video({ src }) {
+function Video({ id }) {
   return (
     <video width="750" controls>
-      <source src={src} type="video/mp4" />
+      <source src={`assets/videos/${id}.mp4`} type="video/mp4" />
     </video>
   )
 }
@@ -45,9 +45,9 @@ function App() {
         } else {
           return (
             <ul>
-              {videos.map(({ id, src }) => (
+              {videos.map(({ id }) => (
                 <li>
-                  <Video key={id} src={src} />
+                  <Video key={id} id={id} />
                 </li>
               ))}
             </ul>
