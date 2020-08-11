@@ -45,9 +45,9 @@ function App() {
         } else {
           return (
             <ul>
-              {videos.map(({ id }) => (
+              {videos.map(({ videoId }) => (
                 <li>
-                  <Video key={id} id={id} />
+                  <Video key={videoId} id={videoId} />
                 </li>
               ))}
             </ul>
